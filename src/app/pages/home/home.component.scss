@@ -1,0 +1,57 @@
+.upload-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.upload-text {
+    font-size: 20px;
+    text-align: center;
+}
+
+.logo-first-wrapper {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: #0000002c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-second-wrapper {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background-color: #000000;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 360ms cubic-bezier(.2,.8,.2,1), box-shadow 360ms ease;
+    transform-origin: center;
+    will-change: transform;
+}
+.logo-second-wrapper:hover,
+.logo-second-wrapper:focus {
+    transform: scale(1.20);
+}
+.logo-second-wrapper:active {
+    transform: scale(1.55);
+    transition-duration: 580ms;
+}
+
+.logo {
+    background-color: #000000;
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}

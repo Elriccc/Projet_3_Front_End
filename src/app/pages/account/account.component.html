@@ -1,0 +1,14 @@
+<header>
+    <button class="title" routerLink="/">DataShare</button>
+</header>
+<div class="content">
+    <div class="menus">
+        <button #myFiles class="menu-btn" routerLink="/account/my-files">Mes fichiers</button>
+    </div>
+    <div class="account-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<footer>
+    <p>Copyright DataShare&#xA9; 2026</p>
+</footer>

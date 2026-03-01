@@ -1,0 +1,18 @@
+@if(hasRoute('/account') == false) {
+  <header>
+    <button class="title" routerLink="/">DataShare</button>
+    @if (userService.Connected() == true) {
+      <button class="header-btn" routerLink="/account">Mon espace</button>
+    } @else {
+      <button class="header-btn" routerLink="/login">Se connecter</button>
+    }
+  </header>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <footer>
+    <p>Copyright DataShare&#xA9; 2026</p>
+  </footer>
+} @else {
+  <router-outlet></router-outlet>
+}

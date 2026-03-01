@@ -1,0 +1,121 @@
+@font-face {
+  font-family: 'RationalSemiBold';
+  src: url('./assets/RationalTextSemiBold.otf');
+}
+@font-face {
+  font-family: 'RationalLight';
+  src: url('./assets/RationalTextLight.otf');
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(172.84deg, #FFB88C 2.29%, #DE6262 97.71%);
+    font-family: 'RationalLight';
+}
+
+img {
+    user-select: none;
+    -drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+
+.modal-wrapper {
+    background-color: white;
+    border-radius: 9px;
+    min-width: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    font-family: 'RationalSemiBold';
+}
+
+.form-wrapper {
+    width: 100%;
+}
+
+.form-group {
+    width: 90%;
+    margin-left: 5%;
+    padding-bottom: 3%;
+}
+
+.form-control {
+    font-family: 'RationalLight';
+    width: 97%;
+    height: 30px;
+    border-radius: 9px;
+    border: 0.5px solid #CCCCCC;
+    margin-top: 8px;
+}
+input{
+    padding-left: 3%;
+}
+.form-control::placeholder{
+    color: #B3B3B3;
+}
+
+.form-group-button {
+    width: 90.5%;
+    margin-left: 5%;
+    padding-bottom: 3%;
+}
+
+.form-button {
+    font-family: 'RationalLight';
+    height: 30px;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.form-button-secondary{
+    width: 100%;
+    border: none;
+    background-color: #FFFFFF;
+    color: #E27F29;
+    cursor: pointer;
+}
+.form-button-secondary:hover,
+.form-button-secondary:focus{
+    color: #B46520;
+}
+.form-button-secondary:active{
+    color: #874C18;
+}
+
+.form-button-primary {
+    width: 100%;
+    margin-top: 8px;
+    border: 0.5px solid #E6A67C;
+    background-color: #FFEEE4;
+    color: #BA681E;
+}
+.form-button-primary:hover,
+.form-button-primary:focus{
+    border-color: #B88463;
+}
+.form-button-primary:active{
+    color: #945318;
+}
+
+.form-button-upload {
+    width: 30%;
+    border: 0.5px solid #E6A67C;
+    background-color: #FFEEE4;
+    color: #BA681E;
+    display: block;
+    margin: 0 auto;
+}
+.form-button-upload:hover,
+.form-button-upload:focus{
+    border-color: #B88463;
+}
+.form-button-upload:active{
+    color: #945318;
+}

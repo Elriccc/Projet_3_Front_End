@@ -1,0 +1,71 @@
+<div class="modal-wrapper">
+    <h2 class="form-title">Télécharger un fichier</h2>
+    <div class="form-wrapper">
+        <form [formGroup]="downloadForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <input
+                type="file"
+                formControlName="file"
+                class="form-control"
+                data-cy="file"
+                [ngClass]="{ 'is-invalid': submitted && form['file'].errors }"
+                readonly
+                />
+                @if (submitted && form['file'].errors) {
+                <div class="invalid-feedback">
+                    @if (form['file'].errors['required']) {
+                    <div>file is required</div>
+                    }
+                </div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Expiration</label>
+                <input
+                type="text"
+                list="expirations"
+                formControlName="expiration"
+                class="form-control"
+                data-cy="expiration"
+                [ngClass]="{ 'is-invalid': submitted && form['expiration'].errors }"
+                readonly
+                />
+                <datalist id="expirations">
+                    <option value="Une journée">
+                    <option value="Une semaine">
+                </datalist>
+                @if (submitted && form['expiration'].errors) {
+                <div class="invalid-feedback">
+                    @if (form['expiration'].errors['required']) {
+                    <div>expiration is required</div>
+                    }
+                </div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Mot de passe</label>
+                <input
+                type="text"
+                placeholder="Optionnel"
+                formControlName="password"
+                class="form-control"
+                data-cy="password"
+                [ngClass]="{ 'is-invalid': submitted && form['password'].errors }"
+                />
+                @if (submitted && form['password'].errors) {
+                <div class="invalid-feedback">
+                    @if (form['password'].errors['required']) {
+                    <div>password is required</div>
+                    }
+                </div>
+                }
+            </div>
+
+            <div class="form-group-button">
+                <button class="form-button form-button-upload">Télécharger</button>
+            </div>
+        </form>
+    </div>
+</div>
