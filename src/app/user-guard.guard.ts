@@ -1,8 +1,8 @@
 import { CanActivateFn } from '@angular/router';
-import { AuthUtils } from './core/util/auth-util'
+import { AuthUtil } from './core/util/auth-util'
 import { inject } from '@angular/core';
 
 export const userGuard: CanActivateFn = (route, state) => {
-  const utils = inject(AuthUtils)
-  return utils.isAuthenticated();
+  const util = inject(AuthUtil)
+  return util.isAuthenticated();
 };

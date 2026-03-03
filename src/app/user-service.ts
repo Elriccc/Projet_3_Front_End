@@ -1,12 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private isConnected = false;
-  Connected = signal(this.isConnected);
-
+  Connected = signal(false);
+  
   connect() {
     this.Connected.set(true);
   }

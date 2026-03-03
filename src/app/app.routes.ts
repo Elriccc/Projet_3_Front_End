@@ -15,6 +15,6 @@ export const routes: Routes = [
     { path: 'upload', component: UploadComponent },
     { path: 'download', component: DownloadComponent},
     { path: 'account', component: AccountComponent,children: [
-        { path: 'my-files', component: MyFilesComponent }
-    ]}
+        { path: 'my-files', component: MyFilesComponent, canActivate: [userGuard] },
+    ], canActivate: [userGuard] },
 ];
