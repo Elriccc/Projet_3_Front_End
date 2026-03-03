@@ -2,6 +2,9 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { LoginService } from '../../core/service/login.service';
+import { User } from '../../core/model/User';
+import { ErrorUtil } from '../../core/util/error-util';
 
 @Component({
     selector: 'app-register',
@@ -13,8 +16,14 @@ import { Router, RouterLink } from '@angular/router';
 export class RegisterComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
     private router = inject(Router);
-    registerForm: FormGroup = new FormGroup({});
+    private service = inject(LoginService)
+    private errorUtil = inject(ErrorUtil)
+    private user: User = {
+        login: '',
+        password: ''
+    }
     submitted: boolean = false;
+    registerForm: FormGroup = new FormGroup({});
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
@@ -29,7 +38,20 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        
-        this.router.navigate(['/login']);
+        this.submitted = true;
+        if (this.registerForm.invalid) {
+            return;
+        }
+        Object.keys(this.user).forEach((key) => {
+            const typedKey = key as keyof User;
+            this.user[typedKey] = this.registerForm.get(key)?.value
+        })
+        if(this.user.password != this.registerForm.get('passwordConfirmation')?.value){
+            alert('Les mots de passe ne correspondent pas');
+            return;
+        }
+        this.service.register(this.user)
+            .pipe(this.errorUtil.returnErrorIfLoginAlreadyExists())
+            .subscribe(() => { this.router.navigate(['/login']);},);
     }
 }
