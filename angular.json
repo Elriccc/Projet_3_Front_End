@@ -61,10 +61,12 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "datashare-frontend:build:production"
+              "buildTarget": "datashare-frontend:build:production",
+              "proxyConfig": "proxy.conf.json"
             },
             "development": {
-              "buildTarget": "datashare-frontend:build:development"
+              "buildTarget": "datashare-frontend:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
