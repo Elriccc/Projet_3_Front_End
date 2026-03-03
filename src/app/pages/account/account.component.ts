@@ -12,7 +12,6 @@ export class AccountComponent implements AfterViewInit {
   @ViewChild('myFiles', { static: false }) myFilesBtn!: ElementRef<HTMLButtonElement>;
 
   ngAfterViewInit(): void {
-    console.log(this.myFilesBtn)
     this.myFilesBtn.nativeElement.click();
   }
 }
