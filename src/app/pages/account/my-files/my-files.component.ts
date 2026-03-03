@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthUtil } from '../../../core/util/auth-util';
 
 @Component({
   selector: 'app-my-files',
@@ -9,5 +10,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './my-files.component.scss',
 })
 export class MyFilesComponent {
+  private router = inject(Router);
+  private authUtil = inject(AuthUtil);
 
+    disconnect() {
+        this.authUtil.disconnect();
+        this.router.navigate(['/']);
+    }
 }
