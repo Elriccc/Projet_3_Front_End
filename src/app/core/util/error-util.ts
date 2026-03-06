@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, WritableSignal } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -6,10 +6,14 @@ import { catchError, throwError } from 'rxjs';
 })
 export class ErrorUtil{
 
-    public returnErrorIfLoginAlreadyExists() {
+    public returnRegisterError(registerError: WritableSignal<string>) {
         return catchError(error => {
             if(error.status == 400){
-                alert("L'email choisit existe déjà");
+                registerError.set("L'email choisit existe déjà");
+            } else if(error.status == 500){
+                registerError.set("Le serveur ne répond pas");
+            } else {
+                registerError.set("");
             }
             return throwError(() => new Error(error))
         })

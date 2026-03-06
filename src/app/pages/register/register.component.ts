@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
     submitted: boolean = false;
     registerForm: FormGroup = new FormGroup({});
     passwordsFieldDontMatch: boolean = false;
+    registerError: WritableSignal<string> = signal('');
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
@@ -38,10 +39,12 @@ export class RegisterComponent implements OnInit {
         return this.registerForm.controls;
     }
 
+    onPasswordConfirmationChange() {
+        this.passwordsFieldDontMatch = this.registerForm.get('password')?.value != this.registerForm.get('passwordConfirmation')?.value;
+    }
+
     onSubmit() {
-        console.log(this.registerForm.controls)
         this.submitted = true;
-        this.passwordsFieldDontMatch = this.user.password != this.registerForm.get('passwordConfirmation')?.value;
         if (this.registerForm.invalid) {
             return;
         }
@@ -50,7 +53,7 @@ export class RegisterComponent implements OnInit {
             this.user[typedKey] = this.registerForm.get(key)?.value
         })
         this.service.register(this.user)
-            .pipe(this.errorUtil.returnErrorIfLoginAlreadyExists())
+            .pipe(this.errorUtil.returnRegisterError(this.registerError))
             .subscribe(() => { this.router.navigate(['/login']);},);
     }
 }

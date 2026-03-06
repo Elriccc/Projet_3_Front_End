@@ -1,6 +1,12 @@
 <div class="modal-wrapper">
     <h2 class="form-title">Créer un compte</h2>
     <div class="form-wrapper">
+        @if (registerError() != '') {
+            <div class="form-group-message form-group-error">
+                <img src="Error.svg"/> 
+                <label class="form-group-message-label" [textContent]="registerError()"></label>
+            </div>
+        }
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label class="form-label">Email</label>
@@ -48,6 +54,7 @@
                 class="form-control"
                 data-cy="passwordConfirmation"
                 [ngClass]="{ 'is-invalid': submitted && passwordsFieldDontMatch }"
+                (change)="onPasswordConfirmationChange()"
                 tabindex="5"
                 />
                 @if (submitted && passwordsFieldDontMatch) {
