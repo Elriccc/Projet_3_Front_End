@@ -11,14 +11,8 @@
                 class="form-control"
                 data-cy="login"
                 [ngClass]="{ 'is-invalid': submitted && form['login'].errors }"
+                tabindex="3"
                 />
-                @if (submitted && form['login'].errors) {
-                <div class="invalid-feedback">
-                    @if (form['login'].errors['required']) {
-                    <div>Login is required</div>
-                    }
-                </div>
-                }
             </div>
 
             <div class="form-group">
@@ -30,14 +24,8 @@
                 class="form-control"
                 data-cy="password"
                 [ngClass]="{ 'is-invalid': submitted && form['password'].errors }"
+                tabindex="4"
                 />
-                @if (submitted && form['password'].errors) {
-                <div class="invalid-feedback">
-                    @if (form['password'].errors['required']) {
-                    <div>password is required</div>
-                    }
-                </div>
-                }
             </div>
 
             <div class="form-group">
@@ -49,19 +37,13 @@
                 class="form-control"
                 data-cy="passwordConfirmation"
                 [ngClass]="{ 'is-invalid': submitted && form['passwordConfirmation'].errors }"
+                tabindex="5"
                 />
-                @if (submitted && form['passwordConfirmation'].errors) {
-                <div class="invalid-feedback">
-                    @if (form['passwordConfirmation'].errors['required']) {
-                    <div>password confirmation is required</div>
-                    }
-                </div>
-                }
             </div>
 
             <div class="form-group-button">
-                <button class="form-button form-button-secondary" routerLink="/login">J'ai déjà un compte</button>
-                <button class="form-button form-button-primary" type="submit">Créer mon compte</button>
+                <button class="form-button form-button-secondary" type="button" routerLink="/login" tabindex="7">J'ai déjà un compte</button>
+                <button class="form-button form-button-primary" type="submit" tabindex="6">Créer mon compte</button>
             </div>
         </form>
     </div>

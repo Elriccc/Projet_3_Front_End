@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -15,13 +15,17 @@ export class DownloadComponent implements OnInit {
     private router = inject(Router);
     downloadForm: FormGroup = new FormGroup({});
     submitted: boolean = false;
+    fileName: WritableSignal<string> = signal('Aucun fichier sélectionné');
+    fileSize: WritableSignal<string> = signal('');
+    fileExpirationMessage: WritableSignal<string> = signal('');
+    fileDaysUntilExpired: WritableSignal<number> = signal(0);
 
     ngOnInit() {
         this.downloadForm = this.formBuilder.group({
-            file: ['', Validators.required],
-            expiration: ['', Validators.required],
             password: ['', Validators.required],
         },);
+
+        this.fileExpirationMessage.set("Ce fichier expirera dans 3 jours.");
     }
 
     get form() {

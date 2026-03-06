@@ -1,39 +1,101 @@
 .my-files-header {
     width: 100%;
-    height: 40px;
+    height: 50px;
+    gap: 10px;
     background-color: #FFEEE3;
     display: flex;
-    justify-content: flex-end; /* Aligns items to the end of the main axis */
-    align-items: flex-end; 
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: 0.5px solid #F5C5A9;
 }
 
 .add-files-btn {
     width: 140px;
-    margin-bottom: 0.5%;
-    background-color: #000000;
-    color: #FFFFFF;
+    background-color: #2C2C2C;
+    color: #F3EEE9;
     border-color: transparent;
-    font-family: 'RationalLight';
-    height: 30px;
+    height: 28px;
     border-radius: 9px;
+    font-family: 'RationalLight';
     cursor: pointer;
 }
 
 .disconnect-btn {
+    display: flex;
+    align-items: center;
+    gap: 3px;
     width: 120px;
-    margin-bottom: 0.5%;
     margin-right: 20px;
-    color: #7F3A00;
+    color: #E27F29;
     background-color: transparent;
     border-color: transparent;
-    font-family: 'RationalLight';
-    height: 30px;
+    height: 28px;
     border-radius: 9px;
+    font-family: 'RationalLight';
     cursor: pointer;
 }
 
 .my-files-content {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     background-color: #FFF8F4;
+}
+
+.my-files-title {
+    font-family: 'RationalSemiBold';
+    justify-content: left;
+    padding-left: 20px;
+}
+
+.my-files-switch-container{
+    padding-left: 20px;
+    width: 20%;
+}
+.my-files-switch{
+    display:flex;
+    flex-direction: row;
+    width: 160px;
+    height: 25px;
+}
+
+.my-files-switch-label {
+    font-family: 'RationalLight';
+    font-size: 14px;
+    width: 80px;
+    text-align: center;
+    background: #FFEEE3;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
+    border-top: 0.5px solid #F7D3B8;
+    border-bottom: 0.5px solid #F7D3B8;
+    cursor: pointer;
+}
+.my-files-switch-radio {
+    position: absolute;
+    opacity: 0;
+}
+.my-files-switch-radio:checked+label {
+    border-color: #E5755A;
+    background-color: #E77A6E;
+    color: #FFFFFF;
+}
+
+.my-files-switch-radio:focus-visible+label {
+    border: 2px solid blue;
+}
+.my-files-switch-label-start {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+    border-left: 0.5px solid #F7D3B8;
+}
+.my-files-switch-label-middle {
+    
+}
+.my-files-switch-label-end {
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+    border-right: 0.5px solid #F7D3B8;
 }

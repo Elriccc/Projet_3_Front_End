@@ -2,46 +2,27 @@
     <h2 class="form-title">Télécharger un fichier</h2>
     <div class="form-wrapper">
         <form [formGroup]="downloadForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <input
-                type="file"
-                formControlName="file"
-                class="form-control"
-                data-cy="file"
-                [ngClass]="{ 'is-invalid': submitted && form['file'].errors }"
-                readonly
-                />
-                @if (submitted && form['file'].errors) {
-                <div class="invalid-feedback">
-                    @if (form['file'].errors['required']) {
-                    <div>file is required</div>
-                    }
+            <div class="form-group-file">
+                <div class="form-group-file-icon">
+                    <img src="FileImage.svg"/>
                 </div>
-                }
+                <div class="form-group-file-infos">
+                    <label class="file-name-label" [textContent]="fileName()"></label>
+                    <label class="file-size-label" [textContent]="fileSize()"></label>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label class="form-label">Expiration</label>
-                <input
-                type="text"
-                list="expirations"
-                formControlName="expiration"
-                class="form-control"
-                data-cy="expiration"
-                [ngClass]="{ 'is-invalid': submitted && form['expiration'].errors }"
-                readonly
-                />
-                <datalist id="expirations">
-                    <option value="Une journée">
-                    <option value="Une semaine">
-                </datalist>
-                @if (submitted && form['expiration'].errors) {
-                <div class="invalid-feedback">
-                    @if (form['expiration'].errors['required']) {
-                    <div>expiration is required</div>
-                    }
-                </div>
-                }
+            
+            <div class="form-group-message form-group-info">
+                <img src="Info.svg"/> 
+                <label class="form-group-message-label" [textContent]="fileExpirationMessage()"></label>
+            </div>
+            <div class="form-group-message form-group-alert">
+                <img src="Alert.svg"/> 
+                <label class="form-group-message-label" [textContent]="fileExpirationMessage()"></label>
+            </div>
+            <div class="form-group-message form-group-error">
+                <img src="Error.svg"/> 
+                <label class="form-group-message-label" [textContent]="fileExpirationMessage()"></label>
             </div>
 
             <div class="form-group">
@@ -54,17 +35,10 @@
                 data-cy="password"
                 [ngClass]="{ 'is-invalid': submitted && form['password'].errors }"
                 />
-                @if (submitted && form['password'].errors) {
-                <div class="invalid-feedback">
-                    @if (form['password'].errors['required']) {
-                    <div>password is required</div>
-                    }
-                </div>
-                }
             </div>
 
             <div class="form-group-button">
-                <button class="form-button form-button-upload">Télécharger</button>
+                <button type="button" class="form-button form-button-upload">Télécharger</button>
             </div>
         </form>
     </div>

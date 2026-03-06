@@ -1,5 +1,5 @@
 header {
-    position: absolute;
+    position: fixed;
     top: 0;
     margin-top: 15px;
     width: 100%;
@@ -13,7 +13,7 @@ header {
     font-family: 'RationalSemiBold';
     font-size: 28px;
     justify-self: start;
-    margin-left: 10%;
+    margin-left: 5%;
     border:none;
     background-color: transparent;
     cursor: pointer;
@@ -47,17 +47,10 @@ header {
     color: #B2B2B2;
 }
 
-.content {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 footer {
     color: #FFFFFF;
-    position: absolute;
+    position: fixed;
     bottom: 0;
+    width: 100%;
     margin-left: 5%;
 }
