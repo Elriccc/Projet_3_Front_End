@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -28,11 +28,12 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup = new FormGroup({});
     submitted: boolean = false;
     userService = inject(UserService);
+    loginError: WritableSignal<string> = signal('')
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
-            login: ['', Validators.required],
-            password: ['', Validators.required]
+            login: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+')]],
+            password: ['', [Validators.required, Validators.minLength(8)]]
         },);
     }
 
@@ -42,21 +43,21 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-    if (this.loginForm.invalid) {
-      return;
-    }
-    Object.keys(this.user).forEach((key) => {
-      const typedKey = key as keyof User;
-      this.user[typedKey] = this.loginForm.get(key)?.value
-    })
-
-    this.loginService.login(this.user)
-      .pipe(this.errorUtil.returnErrorIfBadLoginOrPwd())
-      .subscribe(jwt => {
-          this.authUtil.storeLogin(jwt + '', this.user.login);
-          this.userService.connect();
-          this.router.navigate(['/']);
+        if (this.loginForm.invalid) {
+            return;
         }
-      )
+        Object.keys(this.user).forEach((key) => {
+        const typedKey = key as keyof User;
+        this.user[typedKey] = this.loginForm.get(key)?.value
+        })
+
+        this.loginService.login(this.user)
+        .pipe(this.errorUtil.returnLoginError(this.loginError))
+        .subscribe(jwt => {
+            this.authUtil.storeLogin(jwt + '', this.user.login);
+            this.userService.connect();
+            this.router.navigate(['/']);
+            }
+        )
     }
 }

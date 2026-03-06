@@ -2,6 +2,13 @@
     <h2 class="form-title">Connexion</h2>
     <div class="form-wrapper">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            @if (loginError() != '') {
+                <div class="form-group-message form-group-error">
+                    <img src="Error.svg"/> 
+                    <label class="form-group-message-label" [textContent]="loginError()"></label>
+                </div>
+            }
+
             <div class="form-group">
                 <label class="form-label">Email</label>
                 <input
@@ -13,6 +20,11 @@
                 [ngClass]="{ 'is-invalid': submitted && form['login'].errors }"
                 tabindex="3"
                 />
+                @if (submitted && form["login"].hasError('required')) {
+                    <label class="error-label">L'email doit être saisi</label>
+                } @else if (submitted && form["login"].hasError('pattern')) {
+                    <label class="error-label">L'email doit avoir la forme d'un email: exemple@mail.com</label>
+                }
             </div>
 
             <div class="form-group">
@@ -26,6 +38,11 @@
                 [ngClass]="{ 'is-invalid': submitted && form['password'].errors }"
                 tabindex="4"
                 />
+                @if (submitted && form["password"].hasError('required')) {
+                    <label class="error-label">Le mot de passe doit être saisi</label>
+                } @else if (submitted && form["password"].hasError('minlength')) {
+                    <label class="error-label">Le mot de passe doit faire au moins 8 caractères</label>
+                }
             </div>
 
             <div class="form-group-button">

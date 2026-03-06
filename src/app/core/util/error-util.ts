@@ -19,9 +19,15 @@ export class ErrorUtil{
         })
     }
 
-    public returnErrorIfBadLoginOrPwd() {
+    public returnLoginError(loginError: WritableSignal<string>) {
         return catchError(error => {
-            alert('Email ou mot de passe incorrect');
+            if(error.status == 400){
+                loginError.set('Email ou mot de passe incorrect');
+            } else if(error.status == 500){
+                loginError.set("Le serveur ne répond pas");
+            } else {
+                loginError.set("");
+            }
             return throwError(() => new Error(error))
         })
     }
