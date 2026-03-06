@@ -136,6 +136,21 @@ img {
     cursor: pointer;
 }
 
+.is-invalid {
+    border: 2px solid #9B3433;
+    background-color: #FFE2E1;
+    color: #9B3433;
+}
+.is-invalid::placeholder {
+    color: #9B3433;
+}
+
+.error-label {
+    color: #9B3433;
+    font-size: 14px;
+    margin-left: 2%;
+}
+
 .form-group-button {
     width: 90.5%;
     margin-left: 5%;

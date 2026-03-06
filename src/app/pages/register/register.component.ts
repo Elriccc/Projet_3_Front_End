@@ -24,12 +24,13 @@ export class RegisterComponent implements OnInit {
     }
     submitted: boolean = false;
     registerForm: FormGroup = new FormGroup({});
+    passwordsFieldDontMatch: boolean = false;
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            login: ['', Validators.required],
-            password: ['', Validators.required],
-            passwordConfirmation: ['', Validators.required]
+            login: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+')]],
+            password: ['', [Validators.required, Validators.minLength(8)]],
+            passwordConfirmation: ''
         },);
     }
 
@@ -38,7 +39,9 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log(this.registerForm.controls)
         this.submitted = true;
+        this.passwordsFieldDontMatch = this.user.password != this.registerForm.get('passwordConfirmation')?.value;
         if (this.registerForm.invalid) {
             return;
         }
@@ -46,10 +49,6 @@ export class RegisterComponent implements OnInit {
             const typedKey = key as keyof User;
             this.user[typedKey] = this.registerForm.get(key)?.value
         })
-        if(this.user.password != this.registerForm.get('passwordConfirmation')?.value){
-            alert('Les mots de passe ne correspondent pas');
-            return;
-        }
         this.service.register(this.user)
             .pipe(this.errorUtil.returnErrorIfLoginAlreadyExists())
             .subscribe(() => { this.router.navigate(['/login']);},);
