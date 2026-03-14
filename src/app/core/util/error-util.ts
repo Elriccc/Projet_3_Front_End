@@ -1,5 +1,6 @@
 import { Injectable, WritableSignal } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, Observer, throwError, OperatorFunction } from 'rxjs';
+import { DownloadFile } from '../model/DownloadFile';
 
 @Injectable({
   providedIn: 'root'
@@ -31,4 +32,18 @@ export class ErrorUtil{
             return throwError(() => new Error(error))
         })
     }
+
+    public returnUploadError(uploadError: WritableSignal<string>): OperatorFunction<DownloadFile, DownloadFile> {
+        return catchError<DownloadFile, Observable<DownloadFile>>((error) => {
+            if(error.status == 400){
+                uploadError.set("L'extension du fichier est incorrect, compressez-le en .zip si vous souhaitez tout de même le téléverser");
+            } else if(error.status == 500){
+                uploadError.set("Le serveur ne répond pas");
+            } else {
+                uploadError.set("");
+            }
+            return throwError(() => new Error(error));
+        });
+    }
 }
+
