@@ -1,0 +1,16 @@
+<div class="my-file-content">
+    <div class="form-group-file">
+        <img src="FileImage.svg"/>
+        <div class="form-group-file-infos">
+            <label class="file-name-label" [textContent]="file().name"></label>
+            <label class="file-size-label" [textContent]="file().size"></label>
+        </div>
+        <div class="my-file-buttons">
+        @if (file().usePassword){
+            <img class="my-file-has-password" src="HasPassword.svg"/>
+        }
+        <button name="my-file-delete-button"><img class="my-file-delete" src="Delete.svg"/>Supprimer</button>
+        <button name="my-file-goto-file-button">Accéder<img class="my-file-goto" src="GoTo.svg"/></button>
+        </div>
+    </div>
+</div>

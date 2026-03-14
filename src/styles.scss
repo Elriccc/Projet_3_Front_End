@@ -145,6 +145,10 @@ img {
     color: #9B3433;
 }
 
+.is-invalid-label {
+    color: #9B3433;
+}
+
 .error-label {
     color: #9B3433;
     font-size: 14px;
@@ -222,6 +226,17 @@ img {
 
 .form-button-upload:active {
     color: #945318;
+}
+
+.form-button-upload-disabled{
+    width: 105px;
+    height: 35px;
+    padding-top: 8px;
+    gap: 6px;
+    border: 1px solid #E5DFDB;
+    background-color: #F1EDEB;
+    color: #AEA49B;
+    display: flex;
 }
 
 .form-button-copy {
