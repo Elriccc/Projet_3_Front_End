@@ -1,9 +1,13 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import {Clipboard} from '@angular/cdk/clipboard';
-import { ActivatedRoute } from '@angular/router';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { passwordExistAndIsTooShort } from '../../core/util/validator-util';
+import { FileService } from '../../core/service/file.service';
+import { UploadFile } from '../../core/model/UploadFile';
+import { DownloadFile } from '../../core/model/DownloadFile';
+import { ErrorUtil } from '../../core/util/error-util';
+import { Observer } from 'rxjs';
 
 @Component({
     selector: 'app-upload',
@@ -14,22 +18,33 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UploadComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
-    private router = inject(Router);
     private clipboard = inject(Clipboard);
+    private service = inject(FileService);
+    private errorUtil = inject(ErrorUtil);
+    private uploadFile: UploadFile = {
+        password: '',
+        expirationTime: 0,
+        file: new File([], '')
+    }
     uploadForm: FormGroup = new FormGroup({});
-    submitted: boolean = false;
-    validated: boolean = false;
     fileName: WritableSignal<string> = signal('Aucun fichier sélectionné');
-    fileSize: WritableSignal<string> = signal('');
+    fileSizeStr: WritableSignal<string> = signal('');
+
+    submitted: boolean = false;
+    validated: WritableSignal<boolean> = signal(false);
+    fileNameError: WritableSignal<string> = signal('');
+    fileSizeError: WritableSignal<string> = signal('');
+    uploadError: WritableSignal<string> = signal('');
+
     fileExpiration: WritableSignal<string> = signal('');
     fileLink: WritableSignal<string> = signal('');
 
 
     ngOnInit() {
         this.uploadForm = this.formBuilder.group({
-            file: ['', Validators.required],
-            password: ['', Validators.required],
-            expiration: ['', Validators.required]
+            password: ['', passwordExistAndIsTooShort()],
+            expiration: ['1', Validators.required],
+            file: ['', Validators.required]
         },);
     }
 
@@ -39,17 +54,50 @@ export class UploadComponent implements OnInit {
 
     onFileSelected(event: Event) {
         const target = event.target as HTMLInputElement;
-        if(target?.files?.length) {
-            this.fileName.set(target.files[0].name);
-            this.fileSize.set((target.files[0].size / 1000000).toFixed(2) + ' Mo');
+        this.fileNameError.set('');
+        this.fileSizeError.set('');
+        if (!target?.files?.length) {
+            this.fileName.set('Aucun fichier sélectionné');
+            this.fileSizeStr.set('');
+            return;
         }
+        if (target.files[0].name.length > 255) {
+            this.fileNameError.set('Le nom du fichier est trop long');
+        }
+
+        this.fileName.set(target.files[0].name);
+        const size = target.files[0].size;
+        if (size < 1000) {
+            this.fileSizeError.set('Le fichier doit faire au moins 1Ko');
+            this.fileSizeStr.set(size + " o");
+        } else if (size < 1000 * 1000) {
+            this.fileSizeStr.set((size / 1000).toFixed(2) + " Ko");
+        } else if (size < 1000 * 1000 * 1000) {
+            this.fileSizeStr.set((size / (1000 * 1000)).toFixed(2) + " Mo");
+        } else {
+            this.fileSizeStr.set((size / (1000 * 1000 * 1000)).toFixed(2) + " Go");
+            if (size > 1000 * 1000 * 1000) {
+                this.fileSizeError.set("Le fichier ne peut pas faire plus d'1Go");
+            }
+        }
+        this.uploadFile.file = target.files[0];
     }
 
     onSubmit() {
-        this.fileLink.set(window.location.origin);
-        
-        this.fileExpiration.set("Félicitations, ton fichier sera conservé chez nous pendant " + " !")
-        this.validated = true;
+        this.submitted = true;
+        if (this.uploadForm.invalid || this.fileNameError().length > 0 || this.fileSizeError().length > 0) {
+            return;
+        }
+
+        this.uploadFile.password = this.uploadForm.get('password')?.value ?? '';
+        this.uploadFile.expirationTime = Number(this.uploadForm.get('expiration')?.value ?? 0);
+        this.service.upload(this.uploadFile)
+            .pipe(this.errorUtil.returnUploadError(this.uploadError))
+            .subscribe((downloadFile: DownloadFile) => {
+                this.fileLink.set(window.location.origin + '/' + downloadFile.fileLink);
+                this.fileExpiration.set("Félicitations, ton fichier sera conservé chez nous pendant " + downloadFile.daysUntilExpired + " jours !")
+                this.validated.set(true);
+            })
     }
 
     copyLink() {

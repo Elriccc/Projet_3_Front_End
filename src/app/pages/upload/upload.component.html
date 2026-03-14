@@ -1,18 +1,37 @@
 <div class="modal-wrapper">
     <h2 class="form-title">Ajouter un fichier</h2>
     <div class="form-wrapper">
-        @if(validated == false){
+        @if(validated() == false){
         <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+            @if (uploadError() != '') {
+                <div class="form-group-message form-group-error">
+                    <img src="Error.svg"/> 
+                    <label class="form-group-message-label" [textContent]="uploadError()"></label>
+                </div>
+            }
+
             <div class="form-group-file">
                 <img src="FileImage.svg"/>
                 <div class="form-group-file-infos">
-                    <label class="file-name-label" [textContent]="fileName()"></label>
-                    <label class="file-size-label" [textContent]="fileSize()"></label>
+                    <label class="file-name-label" [textContent]="fileName()"
+                    [ngClass]="{ 'is-invalid-label': submitted && fileNameError().length > 0 }"></label>
+                    <label class="file-size-label" [textContent]="fileSizeStr()"
+                    [ngClass]="{ 'is-invalid-label': submitted && fileSizeError().length > 0 }"></label>
                 </div>
                 <label class="form-group-file-button" for="file" tabindex="3">Changer</label>
             </div>
+            @if (submitted && fileNameError().length > 0) {
+                <div class="form-group">
+                    <label class="error-label" [textContent]="fileNameError()">Le nom du fichier est trop long</label>
+                </div>
+            }
+            @if (submitted && fileSizeError().length > 0) {
+                <div class="form-group">
+                    <label class="error-label" [textContent]="fileSizeError()">Le fichier doit faire au moins 1Ko</label>
+                </div>
+            }
 
-            <input hidden type="file" id="file" formControlName="file" (change)="onFileSelected($event)"/>
+            <input hidden formControlName="file" type="file" id="file" (change)="onFileSelected($event)"/>
 
             <div class="form-group">
                 <label class="form-label">Mot de passe</label>
@@ -24,6 +43,9 @@
                 [ngClass]="{ 'is-invalid': submitted && form['password'].errors }"
                 tabindex="4"
                 />
+                @if (submitted && form["password"].hasError('passwordExistAndIsTooShort')) {
+                    <label class="error-label">Le mot de passe doit faire au minimum 6 caractères</label>
+                }
             </div>
 
             <div class="form-group">
@@ -40,8 +62,13 @@
             </div>
 
             <div class="form-group-button">
-                <button class="form-button form-button-upload" type="submit"
-                tabindex="6"><img src="Upload.svg" width="18px" height="18px"/>Téléverser</button>
+                @if (!form['file'].errors) {
+                    <button class="form-button form-button-upload" type="submit"
+                    tabindex="6"><img src="Upload.svg" width="18px" height="18px"/>Téléverser</button>
+                } @else {
+                    <button class="form-button form-button-upload-disabled" type="submit"
+                    tabindex="6" disabled><img src="UploadReadonly.svg" width="18px" height="18px"/>Téléverser</button>
+                }
             </div>
         </form>
         } @else {
@@ -49,7 +76,7 @@
                 <img src="FileImage.svg"/>
                 <div class="form-group-file-infos">
                     <label class="file-name-label" [textContent]="fileName()"></label>
-                    <label class="file-size-label" [textContent]="fileSize()"></label>
+                    <label class="file-size-label" [textContent]="fileSizeStr()"></label>
                 </div>
             </div>
             <div class="form-group">
