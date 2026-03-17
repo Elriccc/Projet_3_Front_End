@@ -1,3 +1,92 @@
 .my-file-content {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 15px;
+    padding-top: 6px;
+    padding-bottom: 2px;
+    height: 45px;
+    border-radius: 9px;
+    background-color: #FEF5EE;
+    border: 1px solid #F9E0CD;
+}
+
+.form-group-my-file {
+    padding-left: 15px;
+    padding-right: 10px;
+    margin: auto;
+    min-width: 0;
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.form-group-my-file-infos {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1px;
+}
+
+.my-file-name-label{
+    font-family: 'RationalMedium';
+    display: block;
     width: 100%;
+    min-height: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.my-file-expiration-label {
+    margin-top: 2px;
+    font-size: 12px;
+    display: block;
+    width: 100%;
+    min-height: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.label-error {
+    color: #C62120
+}
+
+.my-file-buttons {
+    margin-top: 5px;
+    display: inline-flex;
+    gap: 10px;
+}
+
+.my-file-button {
+    color: #E27F29;
+    font-family: 'RationalLight';
+    border-radius: 9px;
+    background-color: transparent;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    border: 1px solid #FFC29B;
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+}
+
+.my-file-button > img {
+    vertical-align: middle;
+    margin-top: 1.5px;
+}
+.goto-image {
+    margin-top: 2px !important;
+}
+
+.my-file-button > span {
+    margin-bottom: 1px;
+    margin-left: 4px;
+}
+
+.my-file-expired-message{
+    font-size: 13px;
+    color: #807B76;
 }

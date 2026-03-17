@@ -1,16 +1,24 @@
 <div class="my-file-content">
-    <div class="form-group-file">
+    <div class="form-group-my-file">
         <img src="FileImage.svg"/>
-        <div class="form-group-file-infos">
-            <label class="file-name-label" [textContent]="file().name"></label>
-            <label class="file-size-label" [textContent]="file().size"></label>
+        <div class="form-group-my-file-infos">
+            <label class="my-file-name-label" [textContent]="filename()"></label>
+            @if(file().daysUntilExpired > 0){
+                <label class="my-file-expiration-label" [textContent]="expiration()"></label>
+            } @else {
+                <label class="my-file-expiration-label label-error" [textContent]="expiration()"></label>
+            }
         </div>
         <div class="my-file-buttons">
-        @if (file().usePassword){
-            <img class="my-file-has-password" src="HasPassword.svg"/>
-        }
-        <button name="my-file-delete-button"><img class="my-file-delete" src="Delete.svg"/>Supprimer</button>
-        <button name="my-file-goto-file-button">Accéder<img class="my-file-goto" src="GoTo.svg"/></button>
+            @if(file().daysUntilExpired > 0){
+                @if (file().usePassword){
+                    <img class="my-file-has-password" src="HasPassword.svg"/>
+                }
+                <button class="my-file-button" (click)="deleteFileEvent()"><img src="Delete.svg" width="13px" height="13px"/>Supprimer</button>
+                <button class="my-file-button" (click)="gotoFile()"><span>Accéder</span><img src="GoTo.svg" width="11px" height="11px" class="goto-image"/></button>
+            } @else {
+                <label class="my-file-expired-message">Ce fichier a expiré, il n'est plus stocké chez nous</label>
+            }
         </div>
     </div>
 </div>

@@ -41,6 +41,7 @@
     width: 100%;
     height: 100%;
     background-color: #FFF8F4;
+    overflow-y: scroll;
 }
 
 .my-files-title {
@@ -91,11 +92,13 @@
     border-bottom-left-radius: 9px;
     border-left: 0.5px solid #F7D3B8;
 }
-.my-files-switch-label-middle {
-    
-}
 .my-files-switch-label-end {
     border-top-right-radius: 9px;
     border-bottom-right-radius: 9px;
     border-right: 0.5px solid #F7D3B8;
+}
+
+.my-files-files {
+    overflow-y: scroll;
+    height: 650px;
 }

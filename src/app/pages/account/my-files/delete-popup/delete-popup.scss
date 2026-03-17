@@ -1,0 +1,45 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  font-family: 'RationalLight';
+  background-color: #FFF8F4;
+  padding-bottom: 9px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 9px;
+  text-align: center;
+  max-width: 200px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  font-family: 'RationalMedium';
+  margin-bottom: 25px;
+  height: 20px;
+}
+
+.confirm-popup {
+  margin-left: 19px;
+  width: 90px;
+  border: 0.5px solid #E5755A;
+  color: #FFFFFF;
+  background-color: #E77A6E;
+}
+
+.cancel-popup {
+  width: 90px;
+  border: 0.5px solid #FFC29B;
+  color: #000000;
+  background-color: #FEF5EE;
+}
