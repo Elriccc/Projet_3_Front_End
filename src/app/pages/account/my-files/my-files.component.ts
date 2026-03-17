@@ -5,7 +5,7 @@ import { AuthUtil } from '../../../core/util/auth-util';
 import { FileService } from '../../../core/service/file.service';
 import { DownloadFile } from '../../../core/model/DownloadFile';
 import { MyFileComponent } from './my-file/my-file.component';
-import { DeletePopupComponent } from './delete-popup/delete-popup';
+import { DeletePopupComponent } from './delete-popup/delete-popup.component';
 
 @Component({
   selector: 'app-my-files',
