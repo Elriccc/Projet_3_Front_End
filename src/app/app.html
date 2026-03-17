@@ -1,16 +1,18 @@
-@if(hasRoute('/account') == false) {
-  <header>
-    <button class="title" routerLink="/" tabindex="1">DataShare</button>
-    @if (userService.Connected() == true) {
-      <button class="header-btn" routerLink="/account" tabindex="2">Mon espace</button>
-    } @else {
-      <button class="header-btn" routerLink="/login" tabindex="2">Se connecter</button>
-    }
-  </header>
-  <router-outlet></router-outlet>
-  <footer>
-    <p>Copyright DataShare&#xA9; 2026</p>
-  </footer>
-} @else {
-  <router-outlet></router-outlet>
+@if(loaded() == true){
+  @if(hasRoute('/account') == true) {
+    <router-outlet></router-outlet>
+  } @else {
+    <header>
+      <button class="title" routerLink="/" tabindex="1">DataShare</button>
+      @if (userService.Connected() == true) {
+        <button class="header-btn" routerLink="/account" tabindex="2">Mon espace</button>
+      } @else {
+        <button class="header-btn" routerLink="/login" tabindex="2">Se connecter</button>
+      }
+    </header>
+    <router-outlet></router-outlet>
+    <footer>
+      <p>Copyright DataShare&#xA9; 2026</p>
+    </footer>
+  }
 }
