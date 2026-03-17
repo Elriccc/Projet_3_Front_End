@@ -1,7 +1,14 @@
 <div class="modal-wrapper">
     <h2 class="form-title">Télécharger un fichier</h2>
     <div class="form-wrapper">
+    @if (daysUntilExpired() > 0){
         <form [formGroup]="downloadForm" (ngSubmit)="onSubmit()">
+            @if (downloadError() != '') {
+                <div class="form-group-message form-group-error">
+                    <img src="Error.svg"/> 
+                    <label class="form-group-message-label" [textContent]="downloadError()"></label>
+                </div>
+            }
             <div class="form-group-file">
                 <div class="form-group-file-icon">
                     <img src="FileImage.svg"/>
@@ -12,34 +19,45 @@
                 </div>
             </div>
             
-            <div class="form-group-message form-group-info">
-                <img src="Info.svg"/> 
-                <label class="form-group-message-label" [textContent]="fileExpirationMessage()"></label>
-            </div>
-            <div class="form-group-message form-group-alert">
-                <img src="Alert.svg"/> 
-                <label class="form-group-message-label" [textContent]="fileExpirationMessage()"></label>
-            </div>
-            <div class="form-group-message form-group-error">
-                <img src="Error.svg"/> 
-                <label class="form-group-message-label" [textContent]="fileExpirationMessage()"></label>
-            </div>
+            @if (daysUntilExpired() > 1) {
+                <div class="form-group-message form-group-info">
+                    <img src="Info.svg"/> 
+                    <label class="form-group-message-label" [textContent]="expirationMessage()"></label>
+                </div>
+            } @else {
+                <div class="form-group-message form-group-alert">
+                    <img src="Alert.svg"/> 
+                    <label class="form-group-message-label" [textContent]="expirationMessage()"></label>
+                </div>
+            }
 
-            <div class="form-group">
-                <label class="form-label">Mot de passe</label>
-                <input
-                type="password"
-                placeholder="Optionnel"
-                formControlName="password"
-                class="form-control"
-                data-cy="password"
-                [ngClass]="{ 'is-invalid': submitted && form['password'].errors }"
-                />
-            </div>
+            @if (usePassword()){
+                <div class="form-group">
+                    <label class="form-label">Saisissez le mot de passe...</label>
+                    <input
+                    type="password"
+                    placeholder="Optionnel"
+                    formControlName="password"
+                    class="form-control"
+                    data-cy="password"
+                    [ngClass]="{ 'is-invalid': submitted && form['password'].errors }"
+                    />
+                </div>
+            }
 
             <div class="form-group-button">
-                <button type="button" class="form-button form-button-upload">Télécharger</button>
+                @if (usePassword() && form['password'].errors) {
+                    <button type="button" class="form-button form-button-download-disabled"><img src="DownloadReadonly.svg" width="18px" height="18px"/>Télécharger</button>
+                } @else {
+                    <button type="button" class="form-button form-button-download" type="submit"><img src="Download.svg" width="18px" height="18px"/>Télécharger</button>
+                }
             </div>
         </form>
+    } @else if(loaded() == true) {
+        <div class="form-group-message form-group-error">
+            <img src="Error.svg"/> 
+            <label class="form-group-message-label">Ce fichier n'est plus disponible en téléchargement car il a expiré</label>
+        </div>
+    }
     </div>
 </div>

@@ -13,8 +13,10 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'upload', component: UploadComponent },
-    { path: 'download', component: DownloadComponent},
     { path: 'account', component: AccountComponent,children: [
         { path: 'my-files', component: MyFilesComponent, canActivate: [userGuard] },
     ], canActivate: [userGuard] },
+
+    //À garder en dernière route, sinon sa variable :fileLink passerait en priorité
+    { path: ':fileLink', component: DownloadComponent},
 ];

@@ -239,6 +239,37 @@ img {
     display: flex;
 }
 
+.form-button-download {
+    width: 110px;
+    height: 35px;
+    padding-top: 8px;
+    gap: 6px;
+    border: 1px solid #E6A67C;
+    background-color: #FFEEE4;
+    color: #BA681E;
+    display: flex;
+}
+
+.form-button-download:hover,
+.form-button-download:focus {
+    border-color: #B88463;
+}
+
+.form-button-download:active {
+    color: #945318;
+}
+
+.form-button-download-disabled{
+    width: 110px;
+    height: 35px;
+    padding-top: 8px;
+    gap: 6px;
+    border: 1px solid #E5DFDB;
+    background-color: #F1EDEB;
+    color: #AEA49B;
+    display: flex;
+}
+
 .form-button-copy {
     width: 125px;
     height: 35px;
