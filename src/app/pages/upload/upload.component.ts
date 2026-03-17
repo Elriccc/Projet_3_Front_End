@@ -43,7 +43,7 @@ export class UploadComponent implements OnInit {
     ngOnInit() {
         this.uploadForm = this.formBuilder.group({
             password: ['', passwordExistAndIsTooShort()],
-            expiration: ['1', Validators.required],
+            expiration: ['7', Validators.required],
             file: ['', Validators.required]
         },);
     }
@@ -95,7 +95,18 @@ export class UploadComponent implements OnInit {
             .pipe(this.errorUtil.returnUploadError(this.uploadError))
             .subscribe((downloadFile: DownloadFile) => {
                 this.fileLink.set(window.location.origin + '/' + downloadFile.fileLink);
-                this.fileExpiration.set("Félicitations, ton fichier sera conservé chez nous pendant " + downloadFile.daysUntilExpired + " jours !")
+                let expirationMessage = "Félicitations, ton fichier sera conservé chez nous pendant ";
+                switch(downloadFile.daysUntilExpired){
+                    case 1: expirationMessage += "un jour";break;
+                    case 2: expirationMessage += "deux jours";break;
+                    case 3: expirationMessage += "trois jours";break;
+                    case 4: expirationMessage += "quatre jours";break;
+                    case 5: expirationMessage += "cinq jours";break;
+                    case 6: expirationMessage += "six jours";break;
+                    case 7: expirationMessage += "une semaine";break;
+                }
+                expirationMessage += " !";
+                this.fileExpiration.set(expirationMessage);
                 this.validated.set(true);
             })
     }
