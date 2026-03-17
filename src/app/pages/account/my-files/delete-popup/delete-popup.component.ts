@@ -3,8 +3,8 @@ import { DownloadFile } from '../../../../core/model/DownloadFile';
 
 @Component({
   selector: 'app-delete-popup',
-  templateUrl: './delete-popup.html',
-  styleUrls: ['./delete-popup.scss']
+  templateUrl: './delete-popup.component.html',
+  styleUrls: ['./delete-popup.component.scss']
 })
 export class DeletePopupComponent {
   file = input.required<DownloadFile | undefined>();
