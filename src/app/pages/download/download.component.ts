@@ -6,6 +6,7 @@ import { FileService } from '../../core/service/file.service';
 import { ErrorUtil } from '../../core/util/error-util';
 import { DownloadFile } from '../../core/model/DownloadFile';
 import { saveAs } from 'file-saver';
+import { buildExpirationMessage, buildFileSizeLabel } from '../../core/util/file-util';
 
 @Component({
     selector: 'app-download',
@@ -45,28 +46,10 @@ export class DownloadComponent implements OnInit {
             .pipe(this.errorUtil.returnRetrieveFileByLinkError(this.router, this.daysUntilExpired, this.loaded))
             .subscribe((downloadFile: DownloadFile) => {
                 this.fileName.set(downloadFile.name + '.' + downloadFile.extension);
-                if (downloadFile.size < 1000) {
-                    this.fileSize.set(downloadFile.size + " o");
-                } else if (downloadFile.size < 1000 * 1000) {
-                    this.fileSize.set((downloadFile.size / 1000).toFixed(2) + " Ko");
-                } else if (downloadFile.size < 1000 * 1000 * 1000) {
-                    this.fileSize.set((downloadFile.size / (1000 * 1000)).toFixed(2) + " Mo");
-                } else {
-                    this.fileSize.set((downloadFile.size / (1000 * 1000 * 1000)).toFixed(2) + " Go");
-                }
+                this.fileSize.set(buildFileSizeLabel(downloadFile.size));
                 this.daysUntilExpired.set(downloadFile.daysUntilExpired);
-                let expirationMessage = "Ce fichier expirera dans ";
-                switch(downloadFile.daysUntilExpired){
-                    case 1: expirationMessage += "un jour";break;
-                    case 2: expirationMessage += "deux jours";break;
-                    case 3: expirationMessage += "trois jours";break;
-                    case 4: expirationMessage += "quatre jours";break;
-                    case 5: expirationMessage += "cinq jours";break;
-                    case 6: expirationMessage += "six jours";break;
-                    case 7: expirationMessage += "une semaine";break;
-                }
-                expirationMessage+=".";
-                this.expirationMessage.set(expirationMessage);
+                this.expirationMessage.set(buildExpirationMessage(downloadFile.daysUntilExpired
+                    , "Ce fichier expirera dans ", "."));
                 this.usePassword.set(downloadFile.usePassword);
                 if(this.usePassword() == false) {
                     this.downloadForm = this.formBuilder.group({});
@@ -82,7 +65,6 @@ export class DownloadComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
         if (this.downloadForm.invalid){
-            console.log("bruh")
             return;
         }
 

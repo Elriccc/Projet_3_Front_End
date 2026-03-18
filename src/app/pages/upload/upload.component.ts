@@ -8,6 +8,7 @@ import { UploadFile } from '../../core/model/UploadFile';
 import { DownloadFile } from '../../core/model/DownloadFile';
 import { ErrorUtil } from '../../core/util/error-util';
 import { Observer } from 'rxjs';
+import { buildExpirationMessage, buildFileSizeLabel } from '../../core/util/file-util';
 
 @Component({
     selector: 'app-upload',
@@ -61,25 +62,19 @@ export class UploadComponent implements OnInit {
             this.fileSizeStr.set('');
             return;
         }
+        
+        const size = target.files[0].size;
         if (target.files[0].name.length > 255) {
             this.fileNameError.set('Le nom du fichier est trop long');
         }
-
-        this.fileName.set(target.files[0].name);
-        const size = target.files[0].size;
         if (size < 1000) {
             this.fileSizeError.set('Le fichier doit faire au moins 1Ko');
-            this.fileSizeStr.set(size + " o");
-        } else if (size < 1000 * 1000) {
-            this.fileSizeStr.set((size / 1000).toFixed(2) + " Ko");
-        } else if (size < 1000 * 1000 * 1000) {
-            this.fileSizeStr.set((size / (1000 * 1000)).toFixed(2) + " Mo");
-        } else {
-            this.fileSizeStr.set((size / (1000 * 1000 * 1000)).toFixed(2) + " Go");
-            if (size > 1000 * 1000 * 1000) {
-                this.fileSizeError.set("Le fichier ne peut pas faire plus d'1Go");
-            }
+        } else if (size > 1000 * 1000 * 1000) {
+            this.fileSizeError.set("Le fichier ne peut pas faire plus d'1Go");
         }
+
+        this.fileName.set(target.files[0].name);
+        this.fileSizeStr.set(buildFileSizeLabel(size));
         this.uploadFile.file = target.files[0];
     }
 
@@ -95,18 +90,9 @@ export class UploadComponent implements OnInit {
             .pipe(this.errorUtil.returnUploadError(this.uploadError))
             .subscribe((downloadFile: DownloadFile) => {
                 this.fileLink.set(window.location.origin + '/' + downloadFile.fileLink);
-                let expirationMessage = "Félicitations, ton fichier sera conservé chez nous pendant ";
-                switch(downloadFile.daysUntilExpired){
-                    case 1: expirationMessage += "un jour";break;
-                    case 2: expirationMessage += "deux jours";break;
-                    case 3: expirationMessage += "trois jours";break;
-                    case 4: expirationMessage += "quatre jours";break;
-                    case 5: expirationMessage += "cinq jours";break;
-                    case 6: expirationMessage += "six jours";break;
-                    case 7: expirationMessage += "une semaine";break;
-                }
-                expirationMessage += " !";
-                this.fileExpiration.set(expirationMessage);
+                this.fileExpiration.set(buildExpirationMessage(downloadFile.daysUntilExpired
+                    , "Félicitations, ton fichier sera conservé chez nous pendant ", " !"
+                ));
                 this.validated.set(true);
             })
     }
