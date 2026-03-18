@@ -4,7 +4,7 @@
         @if(validated() == false){
         <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
             @if (uploadError() != '') {
-                <div class="form-group-message form-group-error">
+                <div data-cy="upload-error" class="form-group-message form-group-error">
                     <img src="Error.svg"/> 
                     <label class="form-group-message-label" [textContent]="uploadError()"></label>
                 </div>
@@ -22,12 +22,12 @@
             </div>
             @if (submitted && fileNameError().length > 0) {
                 <div class="form-group">
-                    <label class="error-label" [textContent]="fileNameError()">Le nom du fichier est trop long</label>
+                    <label data-cy="file-name-error" class="error-label" [textContent]="fileNameError()">Le nom du fichier est trop long</label>
                 </div>
             }
             @if (submitted && fileSizeError().length > 0) {
                 <div class="form-group">
-                    <label class="error-label" [textContent]="fileSizeError()">Le fichier doit faire au moins 1Ko</label>
+                    <label data-cy="file-size-error" class="error-label" [textContent]="fileSizeError()">Le fichier doit faire au moins 1Ko</label>
                 </div>
             }
 
@@ -44,7 +44,7 @@
                 tabindex="4"
                 />
                 @if (submitted && form["password"].hasError('passwordExistAndIsTooShort')) {
-                    <label class="error-label">Le mot de passe doit faire au minimum 6 caractères</label>
+                    <label data-cy="password-too-short-error" class="error-label">Le mot de passe doit faire au minimum 6 caractères</label>
                 }
             </div>
 
@@ -63,10 +63,10 @@
 
             <div class="form-group-button">
                 @if (!form['file'].errors) {
-                    <button class="form-button form-button-upload" type="submit"
+                    <button data-cy="upload-btn" class="form-button form-button-upload" type="submit"
                     tabindex="6"><img src="Upload.svg" width="18px" height="18px"/>Téléverser</button>
                 } @else {
-                    <button class="form-button form-button-upload-disabled" type="submit"
+                    <button data-cy="upload-btn-disabled" class="form-button form-button-upload-disabled" type="submit"
                     tabindex="6" disabled><img src="UploadReadonly.svg" width="18px" height="18px"/>Téléverser</button>
                 }
             </div>
@@ -84,10 +84,10 @@
             </div>
 
             <div class="form-group-link">
-                <a class="form-label file-link-ref" href="{{fileLink()}}" [textContent]="fileLink()"></a>
+                <a data-cy="file-link" class="form-label file-link-ref" href="{{fileLink()}}" [textContent]="fileLink()"></a>
             </div>
             <div class="form-group-button form-group-button-upload">
-                <button class="form-button form-button-copy" type="button" (click)="copyLink()" tabindex="3"><img src="Copy.svg" width="18px" height="18px"/>Copier le lien</button>
+                <button data-cy="copy-btn" class="form-button form-button-copy" type="button" (click)="copyLink()" tabindex="3"><img src="Copy.svg" width="18px" height="18px"/>Copier le lien</button>
             </div>
         }
     </div>

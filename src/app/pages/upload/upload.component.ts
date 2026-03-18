@@ -22,7 +22,7 @@ export class UploadComponent implements OnInit {
     private clipboard = inject(Clipboard);
     private service = inject(FileService);
     private errorUtil = inject(ErrorUtil);
-    private uploadFile: UploadFile = {
+    uploadFile: UploadFile = {
         password: '',
         expirationTime: 0,
         file: new File([], '')

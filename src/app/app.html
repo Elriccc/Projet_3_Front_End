@@ -5,9 +5,9 @@
     <header>
       <button class="title" routerLink="/" tabindex="1">DataShare</button>
       @if (userService.Connected() == true) {
-        <button class="header-btn" routerLink="/account" tabindex="2">Mon espace</button>
+        <button data-cy="account-btn" class="header-btn" routerLink="/account" tabindex="2">Mon espace</button>
       } @else {
-        <button class="header-btn" routerLink="/login" tabindex="2">Se connecter</button>
+        <button data-cy="login-btn" class="header-btn" routerLink="/login" tabindex="2">Se connecter</button>
       }
     </header>
     <router-outlet></router-outlet>

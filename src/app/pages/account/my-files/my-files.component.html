@@ -2,20 +2,20 @@
   <app-delete-popup [file]="selectedFile" (confirm)="deleteFile()" (cancel)="cancelDelete()"></app-delete-popup>
 }
 <div class="my-files-header">
-    <button class="add-files-btn" routerLink="/upload" tabindex="11">Ajouter des fichiers</button>
-    <button class="disconnect-btn" (click)="disconnect()" tabindex="12"><img src="Disconnect.svg"/>Déconnexion</button>
+    <button data-cy="add-files-btn" class="add-files-btn" routerLink="/upload" tabindex="11">Ajouter des fichiers</button>
+    <button data-cy="disconnect-btn" class="disconnect-btn" (click)="disconnect()" tabindex="12"><img src="Disconnect.svg"/>Déconnexion</button>
 </div>
 <div class="my-files-content">
     <h2 class="my-files-title">Mes fichiers</h2>
     <div class="my-files-switch-container">
       <div class="my-files-switch">
-        <input class="my-files-switch-radio" type="radio" id="my-files-switch-all" name="radio" tabindex="13" (click)="allFiles()" checked/>
+        <input data-cy="my-files-switch-all" class="my-files-switch-radio" type="radio" id="my-files-switch-all" name="radio" tabindex="13" (click)="allFiles()" checked/>
         <label class="my-files-switch-label my-files-switch-label-start" for="my-files-switch-all">Tous</label>
 
-        <input class="my-files-switch-radio" type="radio" id="my-files-switch-active" name="radio" (click)="activeFiles()"/>
+        <input data-cy="my-files-switch-active" class="my-files-switch-radio" type="radio" id="my-files-switch-active" name="radio" (click)="activeFiles()"/>
         <label class="my-files-switch-label my-files-switch-label-middle" for="my-files-switch-active">Actifs</label>
 
-        <input class="my-files-switch-radio" type="radio" id="my-files-switch-expired" name="radio" (click)="expiredFiles()"/>
+        <input data-cy="my-files-switch-expired" class="my-files-switch-radio" type="radio" id="my-files-switch-expired" name="radio" (click)="expiredFiles()"/>
         <label class="my-files-switch-label my-files-switch-label-end" for="my-files-switch-expired">Expirés</label>
       </div>
     </div>

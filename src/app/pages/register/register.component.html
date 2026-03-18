@@ -2,7 +2,7 @@
     <h2 class="form-title">Créer un compte</h2>
     <div class="form-wrapper">
         @if (registerError() != '') {
-            <div class="form-group-message form-group-error">
+            <div data-cy="register-error" class="form-group-message form-group-error">
                 <img src="Error.svg"/> 
                 <label class="form-group-message-label" [textContent]="registerError()"></label>
             </div>
@@ -20,9 +20,9 @@
                 tabindex="3"
                 />
                 @if (submitted && form["login"].hasError('required')) {
-                    <label class="error-label">L'email doit être saisi</label>
+                    <label data-cy="login-required-error" class="error-label">L'email doit être saisi</label>
                 } @else if (submitted && form["login"].hasError('pattern')) {
-                    <label class="error-label">L'email doit avoir la forme d'un email: exemple@mail.com</label>
+                    <label data-cy="login-pattern-error" class="error-label">L'email doit avoir la forme d'un email: exemple@mail.com</label>
                 }
             </div>
 
@@ -38,9 +38,9 @@
                 tabindex="4"
                 />
                 @if (submitted && form["password"].hasError('required')) {
-                    <label class="error-label">Le mot de passe doit être saisi</label>
+                    <label data-cy="password-required-error" class="error-label">Le mot de passe doit être saisi</label>
                 } @else if (submitted && form["password"].hasError('minlength')) {
-                    <label class="error-label">Le mot de passe doit faire au moins 8 caractères</label>
+                    <label data-cy="password-minlength-error" class="error-label">Le mot de passe doit faire au moins 8 caractères</label>
                 }
 
             </div>
@@ -58,7 +58,7 @@
                 tabindex="5"
                 />
                 @if (submitted && passwordsFieldDontMatch) {
-                    <label class="error-label">Les mots de passe ne correspondent pas</label>
+                    <label data-cy="password-match-error" class="error-label">Les mots de passe ne correspondent pas</label>
                 }
             </div>
 

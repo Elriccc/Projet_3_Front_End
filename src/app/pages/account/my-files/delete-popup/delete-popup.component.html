@@ -1,8 +1,8 @@
 <div class="popup-overlay" >
-  <div class="popup-content" (click)="$event.stopPropagation()">
+  <div data-cy="popup-message" class="popup-content" (click)="$event.stopPropagation()">
 	<h2 class="modal-title">Suppression</h2>
 	<p [textContent]="message()"></p>
-	<button class="form-button cancel-popup" (click)="cancelDelete()">Annuler</button>
-	<button class="form-button confirm-popup" (click)="confirmDelete()">Confirmer</button>
+	<button data-cy="cancel-btn" class="form-button cancel-popup" (click)="cancelDelete()">Annuler</button>
+	<button data-cy="confirm-btn" class="form-button confirm-popup" (click)="confirmDelete()">Confirmer</button>
   </div>
 </div>

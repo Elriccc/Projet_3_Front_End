@@ -1,7 +1,7 @@
 <div class="content">
     <div class="menus">
-        <button class="title" routerLink="/" tabindex="1">DataShare</button>
-        <button #myFiles class="menu-btn" routerLink="/account/my-files" tabindex="2">Mes fichiers</button>
+        <button data-cy="home-btn" class="title" routerLink="/" tabindex="1">DataShare</button>
+        <button data-cy="my-files-btn" #myFiles class="menu-btn" routerLink="/account/my-files" tabindex="2">Mes fichiers</button>
     </div>
     <div class="account-content">
         <router-outlet></router-outlet>

@@ -14,25 +14,25 @@
                     <img src="FileImage.svg"/>
                 </div>
                 <div class="form-group-file-infos">
-                    <label class="file-name-label" [textContent]="fileName()"></label>
-                    <label class="file-size-label" [textContent]="fileSize()"></label>
+                    <label data-cy="file-name" class="file-name-label" [textContent]="fileName()"></label>
+                    <label data-cy="file-size" class="file-size-label" [textContent]="fileSize()"></label>
                 </div>
             </div>
             
             @if (daysUntilExpired() > 1) {
-                <div class="form-group-message form-group-info">
+                <div data-cy="expiration-info" class="form-group-message form-group-info">
                     <img src="Info.svg"/> 
                     <label class="form-group-message-label" [textContent]="expirationMessage()"></label>
                 </div>
             } @else {
-                <div class="form-group-message form-group-alert">
+                <div data-cy="expiration-alert" class="form-group-message form-group-alert">
                     <img src="Alert.svg"/> 
                     <label class="form-group-message-label" [textContent]="expirationMessage()"></label>
                 </div>
             }
 
             @if (usePassword()){
-                <div class="form-group">
+                <div data-cy="password-group" class="form-group">
                     <label class="form-label">Saisissez le mot de passe...</label>
                     <input
                     type="password"
@@ -47,16 +47,16 @@
 
             <div class="form-group-button">
                 @if (usePassword() && form['password'].errors) {
-                    <button type="button" class="form-button form-button-download-disabled"><img src="DownloadReadonly.svg" width="18px" height="18px"/>Télécharger</button>
+                    <button data-cy="download-btn-disabled" type="button" class="form-button form-button-download-disabled"><img src="DownloadReadonly.svg" width="18px" height="18px"/>Télécharger</button>
                 } @else {
-                    <button type="button" class="form-button form-button-download" type="submit"><img src="Download.svg" width="18px" height="18px"/>Télécharger</button>
+                    <button data-cy="download-btn" type="button" class="form-button form-button-download" type="submit"><img src="Download.svg" width="18px" height="18px"/>Télécharger</button>
                 }
             </div>
         </form>
     } @else if(loaded() == true) {
         <div class="form-group-message form-group-error">
             <img src="Error.svg"/> 
-            <label class="form-group-message-label">Ce fichier n'est plus disponible en téléchargement car il a expiré</label>
+            <label data-cy="expired-message" class="form-group-message-label">Ce fichier n'est plus disponible en téléchargement car il a expiré</label>
         </div>
     }
     </div>
