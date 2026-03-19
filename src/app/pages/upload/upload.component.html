@@ -5,13 +5,13 @@
         <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
             @if (uploadError() != '') {
                 <div data-cy="upload-error" class="form-group-message form-group-error">
-                    <img src="Error.svg"/> 
+                    <img alt="Error" src="Error.svg"/> 
                     <label class="form-group-message-label" [textContent]="uploadError()"></label>
                 </div>
             }
 
             <div class="form-group-file">
-                <img src="FileImage.svg"/>
+                <img alt="File" src="FileImage.svg"/>
                 <div class="form-group-file-infos">
                     <label class="file-name-label" [textContent]="fileName()"
                     [ngClass]="{ 'is-invalid-label': submitted && fileNameError().length > 0 }"></label>
@@ -64,16 +64,16 @@
             <div class="form-group-button">
                 @if (!form['file'].errors) {
                     <button data-cy="upload-btn" class="form-button form-button-upload" type="submit"
-                    tabindex="6"><img src="Upload.svg" width="18px" height="18px"/>Téléverser</button>
+                    tabindex="6"><img alt="Upload" src="Upload.svg" width="18px" height="18px"/>Téléverser</button>
                 } @else {
                     <button data-cy="upload-btn-disabled" class="form-button form-button-upload-disabled" type="submit"
-                    tabindex="6" disabled><img src="UploadReadonly.svg" width="18px" height="18px"/>Téléverser</button>
+                    tabindex="6" disabled><img alt="Upload" src="UploadReadonly.svg" width="18px" height="18px"/>Téléverser</button>
                 }
             </div>
         </form>
         } @else {
             <div class="form-group-file">
-                <img src="FileImage.svg"/>
+                <img alt="File" src="FileImage.svg"/>
                 <div class="form-group-file-infos">
                     <label class="file-name-label" [textContent]="fileName()"></label>
                     <label class="file-size-label" [textContent]="fileSizeStr()"></label>
