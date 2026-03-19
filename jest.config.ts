@@ -32,6 +32,7 @@ const config: Config = {
     '!src/main.server.ts',
     '!src/app/app.config.ts',
     '!src/app/app.config.server.ts',
+    '!src/app/app.routes.ts',
     '!src/**/*.d.ts',
   ],
   coverageReporters: ['html', 'text', 'lcov'],
