@@ -1,5 +1,5 @@
 <div class="modal-wrapper">
-    <h2 class="form-title">Ajouter un fichier</h2>
+    <h2 data-cy="title" class="form-title">Ajouter un fichier</h2>
     <div class="form-wrapper">
         @if(validated() == false){
         <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
@@ -22,12 +22,12 @@
             </div>
             @if (submitted && fileNameError().length > 0) {
                 <div class="form-group">
-                    <label data-cy="file-name-error" class="error-label" [textContent]="fileNameError()">Le nom du fichier est trop long</label>
+                    <label data-cy="file-name-error" class="error-label" [textContent]="fileNameError()"></label>
                 </div>
             }
             @if (submitted && fileSizeError().length > 0) {
                 <div class="form-group">
-                    <label data-cy="file-size-error" class="error-label" [textContent]="fileSizeError()">Le fichier doit faire au moins 1Ko</label>
+                    <label data-cy="file-size-error" class="error-label" [textContent]="fileSizeError()"></label>
                 </div>
             }
 

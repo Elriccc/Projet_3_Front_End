@@ -1,0 +1,23 @@
+{
+    "correctFile": {
+        "fileName": "files/file.png"
+    },
+    "incorrectFile": {
+        "fileName": "files/emptyfile.png",
+        "password": "",
+        "expiration": "7"
+    },
+    "correctFileExpireTomorrow": {
+        "fileName": "files/file.png",
+        "password": "",
+        "expiration": "1"
+    },
+    "correctFileWithPassword": {
+        "fileName": "files/file.png",
+        "password": "Azerty"
+    },
+    "passwordTooShort": {
+        "fileName": "files/file.png",
+        "password": "Az"
+    }
+}

@@ -1,5 +1,5 @@
 <div class="modal-wrapper">
-    <h2 class="form-title">Connexion</h2>
+    <h2 data-cy="title" class="form-title">Connexion</h2>
     <div class="form-wrapper">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             @if (loginError() != '') {
@@ -46,8 +46,8 @@
             </div>
 
             <div class="form-group-button">
-                <button class="form-button form-button-secondary" type="button" routerLink="/register" tabindex="6">Créer un compte</button>
-                <button class="form-button form-button-primary" type="submit" tabindex="5">Connexion</button>
+                <button data-cy="visit-register" class="form-button form-button-secondary" type="button" routerLink="/register" tabindex="6">Créer un compte</button>
+                <button data-cy="submit" class="form-button form-button-primary" type="submit" tabindex="5">Connexion</button>
             </div>
         </form>
     </div>

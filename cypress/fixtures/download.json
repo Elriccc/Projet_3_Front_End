@@ -1,0 +1,14 @@
+{
+    "noPassword": {
+        "password": ""
+    },
+    "goodPassword": {
+        "password": "Azerty"
+    },
+    "passwordTooShort": {
+        "password": "Az"
+    },
+    "passwordIncorrect": {
+        "password": "Poiuyt"
+    }
+}

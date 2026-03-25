@@ -1,0 +1,32 @@
+{
+    "validLogin": {
+        "email": "test@test.com",
+        "password": "Azertyuiop",
+        "passwordConfirmation": "Azertyuiop"
+    },
+    "emailEmpty": {
+        "email": "",
+        "password": "Azertyuiop",
+        "passwordConfirmation": "Azertyuiop"
+    },
+    "emailIncorrect": {
+        "email": "test",
+        "password": "Azertyuiop",
+        "passwordConfirmation": "Azertyuiop"
+    },
+    "passwordEmpty": {
+        "email": "test@test.com",
+        "password": "",
+        "passwordConfirmation": ""
+    },
+    "passwordTooShortUser": {
+        "email": "test@test.com",
+        "password": "Azer",
+        "passwordConfirmation": "Azer"
+    },
+    "passwordDoesnotmatch": {
+        "email": "test@test.com",
+        "password": "Azertyuiop",
+        "passwordConfirmation": "Azer"
+    }
+}

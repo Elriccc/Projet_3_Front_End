@@ -1,5 +1,5 @@
 <div class="modal-wrapper">
-    <h2 class="form-title">Télécharger un fichier</h2>
+    <h2 data-cy="title" class="form-title">Télécharger un fichier</h2>
     <div class="form-wrapper">
     @if (daysUntilExpired() > 0){
         <form [formGroup]="downloadForm" (ngSubmit)="onSubmit()">

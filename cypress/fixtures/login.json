@@ -1,0 +1,22 @@
+{
+    "validLogin": {
+        "email": "test@test.com",
+        "password": "Azertyuiop"
+    },
+    "emailEmpty": {
+        "email": "",
+        "password": "Azertyuiop"
+    },
+    "emailIncorrect": {
+        "email": "test",
+        "password": "Azertyuiop"
+    },
+    "passwordEmpty": {
+        "email": "test@test.com",
+        "password": ""
+    },
+    "passwordTooShortUser": {
+        "email": "test@test.com",
+        "password": "Azer"
+    }
+}
