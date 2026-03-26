@@ -15,6 +15,10 @@ class DownloadPage {
     cy.get('[data-cy=download-btn]').click();
   }
 
+  getErrorDownload() {
+    return cy.get('[data-cy=download-error]')
+  }
+
   getExpirationInfo() {
     return cy.get('[data-cy=expiration-info]')
   }

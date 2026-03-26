@@ -23,7 +23,6 @@ describe('Création de compte', () => {
     function registerFromFixture(fixtureRegister: string){
         const login = users[fixtureRegister];
         RegisterPage.register(login.email, login.password, login.passwordConfirmation);
-
     }
 
     it("Créer un compte fonctionne", () => {

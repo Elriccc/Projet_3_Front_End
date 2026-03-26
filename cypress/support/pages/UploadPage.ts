@@ -9,7 +9,7 @@ class UploadPage {
 
   addFile(fileName: string) {
     if(fileName.length>0)cy.get('#file')
-      .selectFile(`cypress/fixtures/${fileName}`);
+      .selectFile(`cypress/fixtures/${fileName}`, { force: true });
   }
 
   fillPassword(password: string) {
@@ -58,6 +58,14 @@ class UploadPage {
 
   visitFile(){
     cy.get('[data-cy=file-link]').click();
+  }
+
+  getFileLink(){
+    return cy.get('[data-cy=file-link]');
+  }
+
+  getCopyButton() {
+    return cy.get('[data-cy=copy-btn]');
   }
 
   copy() {

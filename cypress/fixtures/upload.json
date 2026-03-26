@@ -2,10 +2,11 @@
     "correctFile": {
         "fileName": "files/file.png"
     },
-    "incorrectFile": {
-        "fileName": "files/emptyfile.png",
-        "password": "",
-        "expiration": "7"
+    "tooSmallFile": {
+        "fileName": "files/emptyfile.txt"
+    },
+    "incorrectExtensionFile": {
+        "fileName": "files/incorrectextension.cmd"
     },
     "correctFileExpireTomorrow": {
         "fileName": "files/file.png",

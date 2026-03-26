@@ -4,7 +4,7 @@
     @if (daysUntilExpired() > 0){
         <form [formGroup]="downloadForm" (ngSubmit)="onSubmit()">
             @if (downloadError() != '') {
-                <div class="form-group-message form-group-error">
+                <div data-cy="download-error" class="form-group-message form-group-error">
                     <img alt="Error" src="Error.svg"/> 
                     <label class="form-group-message-label" [textContent]="downloadError()"></label>
                 </div>
