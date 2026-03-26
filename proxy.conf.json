@@ -1,6 +1,0 @@
-{
-  "/api": {
-    "target": "http://traefik:8081",
-    "secure": false
-  }
-}

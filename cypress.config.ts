@@ -8,6 +8,7 @@ async function waitForContainerHealthy(containerName: string, retries = 30, dela
       const result = execSync(
         `docker inspect --format='{{.State.Health.Status}}' ${containerName}`
       ).toString().trim()
+      console.log(containerName + " statut: " + result)
       if (result === 'healthy') {
         return
       }
@@ -25,6 +26,7 @@ const BASE_URL = "http://localhost:4200"
 export default defineConfig({
   e2e: {
     baseUrl: BASE_URL,
+    chromeWebSecurity: false,
     taskTimeout: 120000,
     setupNodeEvents(on, config){
       on('task', {
@@ -35,9 +37,10 @@ export default defineConfig({
           await waitForContainerHealthy('datashare_backend');
           return null;
         },
-        stopE2EDatabase() {
-          execSync(`${COMPOSE} --env-file ${BACK_END_PATH}.env --env-file ${BACK_END_PATH}.env.e2e --profile e2e stop backend db_e2e`, { stdio: 'inherit' });
-          execSync(`${COMPOSE} up backend`, { stdio: 'inherit' })
+        async stopE2EDatabase() {
+          execSync(`${COMPOSE} down backend db_e2e`, { stdio: 'inherit' });
+          execSync(`${COMPOSE} --env-file ${BACK_END_PATH}.env up -d --no-deps --force-recreate backend`, { stdio: 'inherit' })
+          await waitForContainerHealthy('datashare_backend');
           return null;
         }
       })

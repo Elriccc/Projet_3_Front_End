@@ -8,11 +8,14 @@ describe('Création de compte', () => {
 
     before(() => {
         cy.task("startE2EDatabase");
-        cy.fixture("register").then((register) => { users = register })
+        cy.wait(4000)
+        cy.fixture("register").then((register) => { users = register });
     })
 
+    after(() => {cy.task("stopE2EDatabase");})
+
     beforeEach(() => {
-        cy.mockApi();
+        cy.intercept('POST', '**/register').as('register')
         HomePage.visit();
         HomePage.connect();
         LoginPage.visitRegister();
@@ -21,7 +24,8 @@ describe('Création de compte', () => {
     it("Créer un compte fonctionne", () => {
         const validLogin = users['validLogin'];
         RegisterPage.register(validLogin.email, validLogin.password, validLogin.passwordConfirmation);
+        cy.wait('@register')
+        LoginPage.checkTitle();
     })
 
-    after(() => {cy.task("stopE2EDatabase");})
 })
