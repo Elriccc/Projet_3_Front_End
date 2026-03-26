@@ -11,6 +11,10 @@ class HomePage {
     cy.get('[data-cy=account-btn]').click();
   }
 
+  isConnected(){
+    cy.get('[data-cy=account-btn]').should('exist');
+  }
+
   upload(){
     cy.get('[data-cy=upload-btn]').click();
   }

@@ -1,11 +1,18 @@
+import { Upload } from '../support/fixtures';
 import HomePage from '../support/pages/HomePage';
 import UploadPage from '../support/pages/UploadPage';
 
 describe('Téléversement', () => {
-    before(() => {cy.task("startE2EDatabase");})
+    let files: Record<string, Upload>;
+
+    before(() => {
+        cy.task("startE2EDatabase");
+        cy.fixture("upload").then((upload) => { files = upload });
+    })
+
     after(() => {cy.task("stopE2EDatabase");})
 
-    it("Test", () => {
+    it("Téléverser un fichier fonctionne", () => {
         
     })
 })

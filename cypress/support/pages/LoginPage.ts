@@ -8,11 +8,11 @@ class LoginPage {
   }
 
   fillEmail(email: string) {
-    cy.get('[data-cy=login]').type(email);
+    if(email.length > 0)cy.get('[data-cy=login]').type(email);
   }
 
   fillPassword(password: string) {
-    cy.get('[data-cy=password]').type(password, { log: false });
+    if(password.length > 0)cy.get('[data-cy=password]').type(password, { log: false });
   }
 
   visitRegister(){
@@ -24,23 +24,23 @@ class LoginPage {
   }
 
   getErrorLogin() {
-    cy.get('[data-cy=login-error]')
+    return cy.get('[data-cy=login-error]')
   }
 
   getLoginRequiredError(){
-    cy.get('[data-cy=login-required-error]')
+    return cy.get('[data-cy=login-required-error]')
   }
 
   getLoginPatternError(){
-    cy.get('[data-cy=login-pattern-error]')
+    return cy.get('[data-cy=login-pattern-error]')
   }
 
   getPasswordRequiredError(){
-    cy.get('[data-cy=password-required-error]')
+    return cy.get('[data-cy=password-required-error]')
   }
 
   getPasswordMinlengthError(){
-    cy.get('[data-cy=password-minlength-error]')
+    return cy.get('[data-cy=password-minlength-error]')
   }
 
   login(email: string, password: string) {

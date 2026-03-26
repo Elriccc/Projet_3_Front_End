@@ -8,15 +8,15 @@ class RegisterPage {
   }
 
   fillEmail(email: string) {
-    cy.get('[data-cy=login]').type(email);
+    if(email.length>0)cy.get('[data-cy=login]').type(email);
   }
 
   fillPassword(password: string) {
-    cy.get('[data-cy=password]').type(password);
+    if(password.length>0)cy.get('[data-cy=password]').type(password);
   }
 
   fillPasswordConfirmation(passwordConfirmation: string) {
-    cy.get('[data-cy=passwordConfirmation]').type(passwordConfirmation)
+    if(passwordConfirmation.length>0)cy.get('[data-cy=passwordConfirmation]').type(passwordConfirmation)
   }
 
   visitLogin(){
@@ -28,27 +28,27 @@ class RegisterPage {
   }
 
   getErrorRegister() {
-    cy.get('[data-cy=register-error]')
+    return cy.get('[data-cy=register-error]')
   }
 
   getLoginRequiredError(){
-    cy.get('[data-cy=login-required-error]')
+    return cy.get('[data-cy=login-required-error]')
   }
 
   getLoginPatternError(){
-    cy.get('[data-cy=login-pattern-error]')
+    return cy.get('[data-cy=login-pattern-error]')
   }
 
   getPasswordRequiredError(){
-    cy.get('[data-cy=password-required-error]')
+    return cy.get('[data-cy=password-required-error]')
   }
 
   getPasswordMinlengthError(){
-    cy.get('[data-cy=password-minlength-error]')
+    return cy.get('[data-cy=password-minlength-error]')
   }
 
   getPasswordMatchError(){
-    cy.get('[data-cy=password-match-error]')
+    return cy.get('[data-cy=password-match-error]')
   }
 
   register(email: string, password: string, passwordConfirmation: string) {

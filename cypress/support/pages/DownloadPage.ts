@@ -8,7 +8,7 @@ class DownloadPage {
   }
 
   fillPassword(password: string) {
-    cy.get('[data-cy=password]').type(password);
+    if(password.length>0)cy.get('[data-cy=password]').type(password);
   }
 
   submit() {
@@ -16,15 +16,15 @@ class DownloadPage {
   }
 
   getExpirationInfo() {
-    cy.get('[data-cy=expiration-info]')
+    return cy.get('[data-cy=expiration-info]')
   }
 
   getExpirationAlert() {
-    cy.get('[data-cy=expiration-alert]')
+    return cy.get('[data-cy=expiration-alert]')
   }
 
   getExpirationMessage() {
-    cy.get('[data-cy=expiration-message]')
+    return cy.get('[data-cy=expiration-message]')
   }
 
   download(password?: string) {

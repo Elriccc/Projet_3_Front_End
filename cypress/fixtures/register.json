@@ -19,12 +19,12 @@
         "password": "",
         "passwordConfirmation": ""
     },
-    "passwordTooShortUser": {
+    "passwordTooShort": {
         "email": "test@test.com",
         "password": "Azer",
         "passwordConfirmation": "Azer"
     },
-    "passwordDoesnotmatch": {
+    "passwordDoesNotMatch": {
         "email": "test@test.com",
         "password": "Azertyuiop",
         "passwordConfirmation": "Azer"

@@ -8,7 +8,6 @@ describe('Création de compte', () => {
 
     before(() => {
         cy.task("startE2EDatabase");
-        cy.wait(4000)
         cy.fixture("register").then((register) => { users = register });
     })
 
@@ -21,11 +20,41 @@ describe('Création de compte', () => {
         LoginPage.visitRegister();
     })
 
+    function registerFromFixture(fixtureRegister: string){
+        const login = users[fixtureRegister];
+        RegisterPage.register(login.email, login.password, login.passwordConfirmation);
+
+    }
+
     it("Créer un compte fonctionne", () => {
-        const validLogin = users['validLogin'];
-        RegisterPage.register(validLogin.email, validLogin.password, validLogin.passwordConfirmation);
+        registerFromFixture('validLogin')       
         cy.wait('@register')
         LoginPage.checkTitle();
+    })
+
+    it("Créer un compte avec un email vide affiche une erreur sur l'email", () => {
+        registerFromFixture('emailEmpty')       
+        RegisterPage.getLoginRequiredError().should('exist')
+    })
+
+    it("Créer un compte avec un email au mauvais format affiche une erreur sur l'email", () => {
+        registerFromFixture('emailIncorrect')       
+        RegisterPage.getLoginPatternError().should('exist')
+    })
+
+    it("Créer un compte avec un mot de passe vide affiche une erreur sur le mot de passe", () => {
+        registerFromFixture('passwordEmpty')       
+        RegisterPage.getPasswordRequiredError().should('exist')
+    })
+
+    it("Créer un compte avec un mot de passe trop court affiche une erreur sur le mot de passe", () => {
+        registerFromFixture('passwordTooShort')       
+        RegisterPage.getPasswordMinlengthError().should('exist')
+    })
+
+    it("Créer un compte avec un mot de passe mal confirmé affiche une erreur sur le mot de passe", () => {
+        registerFromFixture('passwordDoesNotMatch')       
+        RegisterPage.getPasswordMatchError().should('exist')
     })
 
 })

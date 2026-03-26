@@ -3,6 +3,10 @@
         "email": "test@test.com",
         "password": "Azertyuiop"
     },
+    "nonExistingLogin": {
+        "email": "testincorrect@test.com",
+        "password": "Azertyuiop"
+    },
     "emailEmpty": {
         "email": "",
         "password": "Azertyuiop"

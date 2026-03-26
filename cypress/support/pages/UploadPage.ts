@@ -8,20 +8,20 @@ class UploadPage {
   }
 
   addFile(fileName: string) {
-    cy.get('#file')
+    if(fileName.length>0)cy.get('#file')
       .selectFile(`cypress/fixtures/${fileName}`);
   }
 
   fillPassword(password: string) {
-    cy.get('[data-cy=password]').type(password);
+    if(password.length>0)cy.get('[data-cy=password]').type(password);
   }
 
   selectExpiration(expiration: string) {
-    cy.get('[data-cy=expiration]').type(expiration);
+    if(expiration.length>0)cy.get('[data-cy=expiration]').type(expiration);
   }
 
   getUploadDisabled(){
-    cy.get('[data-cy=upload-btn-disabled]');
+    return cy.get('[data-cy=upload-btn-disabled]');
   }
 
   submit() {
@@ -29,19 +29,19 @@ class UploadPage {
   }
 
   getErrorUpload() {
-    cy.get('[data-cy=upload-error]')
+    return cy.get('[data-cy=upload-error]')
   }
 
   getFileNameError(){
-    cy.get('[data-cy=file-name-error]')
+    return cy.get('[data-cy=file-name-error]')
   }
 
   getFilSizeError(){
-    cy.get('[data-cy=file-size-error]')
+    return cy.get('[data-cy=file-size-error]')
   }
 
   getPasswordTooShortError(){
-    cy.get('[data-cy=password-too-short-error]')
+    return cy.get('[data-cy=password-too-short-error]')
   }
 
   upload(fileName: string, password?: string, expiration?: string){
