@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ErrorUtil } from './error-util';
 import { signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { throwError, of } from 'rxjs';
+import { throwError } from 'rxjs';
 
 describe('ErrorUtil', () => {
   let errorUtil: ErrorUtil;
@@ -27,7 +27,7 @@ describe('ErrorUtil', () => {
       const registerError = signal('');
       throwError(() => ({ status: 400 }))
         .pipe(errorUtil.returnRegisterError(registerError))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(registerError()).toBe("L'email choisit existe déjà");
           done();
         }});
@@ -37,7 +37,7 @@ describe('ErrorUtil', () => {
       const registerError = signal('');
       throwError(() => ({ status: 500 }))
         .pipe(errorUtil.returnRegisterError(registerError))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(registerError()).toBe('Le serveur ne répond pas');
           done();
         }});
@@ -60,7 +60,7 @@ describe('ErrorUtil', () => {
       const loginError = signal('');
       throwError(() => ({ status: 400 }))
         .pipe(errorUtil.returnLoginError(loginError))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(loginError()).toBe('Email ou mot de passe incorrect');
           done();
         }});
@@ -70,7 +70,7 @@ describe('ErrorUtil', () => {
       const loginError = signal('');
       throwError(() => ({ status: 500 }))
         .pipe(errorUtil.returnLoginError(loginError))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(loginError()).toBe('Le serveur ne répond pas');
           done();
         }});
@@ -94,7 +94,7 @@ describe('ErrorUtil', () => {
       const loaded = signal(false);
       throwError(() => ({ status: 404 }))
         .pipe(errorUtil.returnRetrieveFileByLinkError(routerMock as any, daysUntilExpired, loaded))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
           done();
         }});
@@ -105,7 +105,7 @@ describe('ErrorUtil', () => {
       const loaded = signal(false);
       throwError(() => ({ status: 500 }))
         .pipe(errorUtil.returnRetrieveFileByLinkError(routerMock as any, daysUntilExpired, loaded))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
           done();
         }});
@@ -116,7 +116,7 @@ describe('ErrorUtil', () => {
       const loaded = signal(false);
       throwError(() => ({ status: 410 }))
         .pipe(errorUtil.returnRetrieveFileByLinkError(routerMock as any, daysUntilExpired, loaded))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(daysUntilExpired()).toBe(0);
           expect(loaded()).toBe(true);
           expect(routerMock.navigate).not.toHaveBeenCalled();
@@ -131,7 +131,7 @@ describe('ErrorUtil', () => {
       const uploadError = signal('');
       throwError(() => ({ status: 400 }))
         .pipe(errorUtil.returnUploadError(uploadError))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(uploadError()).toContain("L'extension du fichier est incorrect");
           done();
         }});
@@ -141,7 +141,7 @@ describe('ErrorUtil', () => {
       const uploadError = signal('');
       throwError(() => ({ status: 500 }))
         .pipe(errorUtil.returnUploadError(uploadError))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(uploadError()).toBe('Le serveur ne répond pas');
           done();
         }});
@@ -164,7 +164,7 @@ describe('ErrorUtil', () => {
       const downloadError = signal('');
       throwError(() => ({ status: 400 }))
         .pipe(errorUtil.returnDownloadError(downloadError))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(downloadError()).toBe('Le mot de passe est incorrect');
           done();
         }});
@@ -174,7 +174,7 @@ describe('ErrorUtil', () => {
       const downloadError = signal('');
       throwError(() => ({ status: 404 }))
         .pipe(errorUtil.returnDownloadError(downloadError))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(downloadError()).toBe("Le fichier n'existe plus");
           done();
         }});
@@ -184,7 +184,7 @@ describe('ErrorUtil', () => {
       const downloadError = signal('');
       throwError(() => ({ status: 500 }))
         .pipe(errorUtil.returnDownloadError(downloadError))
-        .subscribe({ error: () => {
+        .subscribe({ complete: () => {
           expect(downloadError()).toBe('Le serveur ne répond pas');
           done();
         }});

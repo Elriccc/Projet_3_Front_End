@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { User } from '../model/User';
 
 describe('LoginService', () => {
+  const baseUrl = 'http://localhost:8081/api/'
   let service: LoginService;
   let httpMock: HttpTestingController;
 
@@ -30,7 +31,7 @@ describe('LoginService', () => {
     it('doit faire un POST /api/register', () => {
       service.register(mockUser).subscribe();
 
-      const req = httpMock.expectOne('/api/register');
+      const req = httpMock.expectOne(`${baseUrl}register`);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(mockUser);
       req.flush({});
@@ -43,7 +44,7 @@ describe('LoginService', () => {
         expect(res).toBe('mon.jwt.token');
       });
 
-      const req = httpMock.expectOne('/api/login');
+      const req = httpMock.expectOne(`${baseUrl}login`);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(mockUser);
       req.flush('mon.jwt.token');
@@ -54,7 +55,7 @@ describe('LoginService', () => {
     it('doit faire un GET /api/auth/:token', () => {
       service.isAuthTokenCorrect('mon.jwt.token').subscribe();
 
-      const req = httpMock.expectOne('/api/auth/mon.jwt.token');
+      const req = httpMock.expectOne(`${baseUrl}auth/mon.jwt.token`);
       expect(req.request.method).toBe('GET');
       req.flush({ valid: true });
     });

@@ -15,6 +15,7 @@ const mockDownloadFile: DownloadFile = {
 };
 
 describe('FileService', () => {
+  const basUrl='http://localhost:8081/api/'
   let service: FileService;
   let httpMock: HttpTestingController;
 
@@ -47,7 +48,7 @@ describe('FileService', () => {
         expect(res).toEqual(mockDownloadFile);
       });
 
-      const req = httpMock.expectOne('/api/files');
+      const req = httpMock.expectOne(`${basUrl}files`);
       expect(req.request.method).toBe('POST');
       expect(req.request.headers.get('Authorization')).toBe('Bearer token-test');
       req.flush(mockDownloadFile);
@@ -60,7 +61,7 @@ describe('FileService', () => {
         expect(files).toEqual([mockDownloadFile]);
       });
 
-      const req = httpMock.expectOne('/api/files');
+      const req = httpMock.expectOne(`${basUrl}files`);
       expect(req.request.method).toBe('GET');
       expect(req.request.headers.get('Authorization')).toBe('Bearer token-test');
       req.flush([mockDownloadFile]);
@@ -71,7 +72,7 @@ describe('FileService', () => {
         expect(files).toEqual([]);
       });
 
-      const req = httpMock.expectOne('/api/files');
+      const req = httpMock.expectOne(`${basUrl}files`);
       req.flush([]);
     });
   });
@@ -82,7 +83,7 @@ describe('FileService', () => {
         expect(file).toEqual(mockDownloadFile);
       });
 
-      const req = httpMock.expectOne('/api/files/abc123');
+      const req = httpMock.expectOne(`${basUrl}files/abc123`);
       expect(req.request.method).toBe('GET');
       req.flush(mockDownloadFile);
     });
@@ -92,7 +93,7 @@ describe('FileService', () => {
     it('doit faire un POST /api/files/download/:link avec le mot de passe', () => {
       service.download('abc123', 'monMotDePasse').subscribe();
 
-      const req = httpMock.expectOne('/api/files/download/abc123');
+      const req = httpMock.expectOne(`${basUrl}files/download/abc123`);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toBe('monMotDePasse');
       expect(req.request.responseType).toBe('blob');
@@ -102,7 +103,7 @@ describe('FileService', () => {
     it('doit accepter un mot de passe undefined', () => {
       service.download('abc123', undefined).subscribe();
 
-      const req = httpMock.expectOne('/api/files/download/abc123');
+      const req = httpMock.expectOne(`${basUrl}files/download/abc123`);
       expect(req.request.body).toBeNull();
       req.flush(new Blob());
     });
@@ -112,7 +113,7 @@ describe('FileService', () => {
     it('doit faire un DELETE /api/files/:link', () => {
       service.delete('abc123').subscribe();
 
-      const req = httpMock.expectOne('/api/files/abc123');
+      const req = httpMock.expectOne(`${basUrl}files/abc123`);
       expect(req.request.method).toBe('DELETE');
       expect(req.request.headers.get('Authorization')).toBe('Bearer token-test');
       req.flush({});
@@ -123,7 +124,7 @@ describe('FileService', () => {
     it('doit faire un PUT /api/files/:link avec les tags', () => {
       service.updateTags('abc123', ['tag1', 'tag2']).subscribe();
 
-      const req = httpMock.expectOne('/api/files/abc123');
+      const req = httpMock.expectOne(`${basUrl}files/abc123`);
       expect(req.request.method).toBe('PUT');
       expect(req.request.body).toEqual({ tags: ['tag1', 'tag2'] });
       req.flush({});
@@ -132,7 +133,7 @@ describe('FileService', () => {
     it('doit accepter un tableau de tags vide', () => {
       service.updateTags('abc123', []).subscribe();
 
-      const req = httpMock.expectOne('/api/files/abc123');
+      const req = httpMock.expectOne(`${basUrl}files/abc123`);
       expect(req.request.body).toEqual({ tags: [] });
       req.flush({});
     });
